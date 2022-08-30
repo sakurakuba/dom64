@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>See console</h1>
+
+<script type="application/javascript">
+
+    const options = ['rock' , 'paper', 'scissors'];
+
+    function random_option(options) {
+        return options[Math.floor(Math.random() * options.length)]
+    };
+
+    const gameWinner = (skynet, user) => {
+        let winner = null;
+
+        function win_scenario (x, y, z) {
+            if (skynet.option === x && user.option === y) {
+                    return winner = z;
+                }
+            else {
+                return false;
+            }
+        };
+    
+        win_scenario('rock', 'scissors', skynet.name);
+        win_scenario('scissors', 'paper', skynet.name);     
+        win_scenario('paper', 'rock', skynet.name);
+        win_scenario('scissors', 'rock', user.name);
+        win_scenario('paper', 'scissors', user.name);
+        win_scenario('rock', 'paper', user.name);
+
+        return winner
+    };
+
+    function game() {
+
+        let skynet = {
+            name: "skynet",
+            skynet_count: 0
+        }
+
+        let user = {
+            name: "user",
+            user_count: 0
+        }
+
+        while (true) {
+
+            skynet["option"] = random_option(options);
+            console.log(skynet.option);
+            user["option"] = prompt("Please enter one of the options: rock, paper or scissors. If you want end game - please enter 'cancel'");
+
+        if (user.option === 'cancel') {
+            break;
+        }
+
+        let winner = gameWinner(skynet, user);
+       
+        if (winner === skynet.name) {
+            skynet.skynet_count ++;
+            alert(`Winner is Skynet! Current wins: ${skynet.skynet_count}`);
+        }
+        else if (winner === user.name) {
+                user.user_count ++;
+                alert(`Winner is USer! Current wins: ${user.user_count}`)
+            }
+        else {
+            alert(`no winner at this time`)
+        }
+        }
+    alert(`Game over! User score = ${user.user_count}, Skynet's score = ${skynet.skynet_count}`);   
+    };
+    
+    console.log(game())   
+
+
+</script>
+
+
+</body>
+</html>
