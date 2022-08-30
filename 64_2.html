@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>See console</h1>
+
+<script type="application/javascript">
+
+    const options = ['iphone' , 'script', 'super', 'fly'];
+
+    function random_option(options) {
+        return options[Math.floor(Math.random() * options.length)]
+    };
+
+    const magicLetter = (skynet, user, letter) => {
+
+        if (skynet.word.includes(user.letter)) {
+            let my_index = skynet.word.split('').map( function(e,i){ if(e === user.letter) return i;}).filter(Boolean)
+            //let my_index1 = skynet.word.indexOf(user.letter)
+            console.log(my_index)
+            if (my_index.length > 1) {
+            for(i=0;i<my_index.length;i++) {
+                user.secret_word = user.secret_word.substring(0, my_index[i]) + user.letter +  user.secret_word.substring(my_index[i], user.secret_word.length-1);
+            };
+        } else {
+            user.secret_word = user.secret_word.substring(0, my_index) + user.letter +  user.secret_word.substring(my_index, user.secret_word.length-1);
+        };
+            user.user_count ++;
+            if (user.nums < skynet.nums) {
+                user.nums ++;
+                return user.secret_word;
+            } else {
+                return Error
+            }
+        } else {
+            user.user_count ++;
+            return user.secret_word;
+            alert("No this letter in secret word. please try again");
+        } 
+    };
+
+    function game() {
+
+        let skynet = {
+            name: "skynet",
+            skynet_count: 0
+        }
+
+        let user = {
+            name: "user",
+            user_count: 0
+        }
+
+
+
+            if (options) {
+                skynet["word"] = random_option(options);
+                skynet["nums"] = skynet.word.length;
+                options.splice(options.indexOf(skynet.word),1);
+            } else {
+                alert("no more new words in data base. Thank you for your game!");
+            };
+            
+            user["secret_word"] = "_".repeat(skynet.word.length)
+            user["nums"] = 0
+
+
+            console.log(skynet.word);
+
+            while (true) {
+
+
+            user["letter"] = prompt(`Please enter only 1 letter to guess secret word - ${user.secret_word}.
+            Word length is ${skynet.nums}. You guessed ${user.nums} letters.  
+            If you want end game - please enter 'cancel'`).toLowerCase();
+
+        if (user.letter === 'cancel') {
+            break;
+        }
+
+        if (user.letter.length > 1) {
+            alert("too long letter. please enter just 1 letter");
+        };
+
+        magicLetter(skynet, user, user.letter);
+       
+        if (user.secret_word === skynet.word) {
+            alert(`You guessed the word! Congratulations! secret word was: ${skynet.word}, you guessed it ${user.user_count} times.`);
+            break;
+        }
+        }
+    alert(`Game over! Secret word was "${skynet.word}", you tried ${user.user_count} times to guess it`);   
+    };
+    
+    console.log(game())   
+    console.log(options)
+
+
+</script>
+
+
+</body>
+</html>
