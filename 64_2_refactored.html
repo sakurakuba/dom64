@@ -65,6 +65,7 @@
             skynet["word"] = random_option(options);
             skynet["tmp"] = {};
             skynet["nums"] = skynet.word.length
+            skynet["word_copy"] = skynet.word.split("")
     
             user["secret_word"] = "_".repeat(skynet.word.length);
             console.log(user.secret_word)
